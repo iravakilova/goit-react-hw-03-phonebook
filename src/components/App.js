@@ -38,6 +38,20 @@ export class App extends Component {
     }));
   };
 
+  componentDidMount() {
+    const savedData = localStorage.getItem('contacts');
+
+    if (savedData) {
+      this.setState({ contacts: JSON.parse(savedData) });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
   render() {
     return (
       <Box m={4}>
